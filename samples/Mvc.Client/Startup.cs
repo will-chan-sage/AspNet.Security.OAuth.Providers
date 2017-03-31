@@ -6,6 +6,7 @@
 
 using AspNet.Security.OAuth.GitHub;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,14 @@ namespace Mvc.Client
             });
 
             services.AddMvc();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("authorized",
+                                  policy => policy.Requirements.Add(new AuthorizedRequirement(21)));
+            });
+
+            services.AddSingleton<IAuthorizationHandler, AuthorizedHandler>();
         }
 
         public void Configure(IApplicationBuilder app)

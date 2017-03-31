@@ -6,6 +6,7 @@
 
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mvc.Client.Extensions;
 
@@ -14,7 +15,7 @@ namespace Mvc.Client.Controllers
     public class AuthenticationController : Controller
     {
 
-        [HttpGet("~/signin")]
+        [HttpGet("~/signin"), Authorize(Policy ="authorized") ]
         //public IActionResult SignIn() => View("SignIn", HttpContext.GetExternalProviders());
         public IActionResult SignIn()
         {
@@ -29,7 +30,7 @@ namespace Mvc.Client.Controllers
             return Challenge(new AuthenticationProperties { RedirectUri = "/" }, "GitHub");
         }
 
-        [HttpPost("~/signin")]
+        [HttpPost("~/signin"), Authorize(Policy = "authorized")]
         public IActionResult SignIn([FromForm] string provider)
         {
             // Note: the "provider" parameter corresponds to the external
@@ -50,7 +51,7 @@ namespace Mvc.Client.Controllers
             return Challenge(new AuthenticationProperties { RedirectUri = "/" }, provider);
         }
 
-        [HttpGet("~/signout"), HttpPost("~/signout")]
+        [HttpGet("~/signout"), HttpPost("~/signout"), Authorize(Policy = "authorized")]
         public IActionResult SignOut()
         {
             //HttpContext.Session.Clear();
