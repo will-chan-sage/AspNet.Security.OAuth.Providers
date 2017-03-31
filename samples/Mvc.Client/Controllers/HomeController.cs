@@ -11,6 +11,19 @@ namespace Mvc.Client.Controllers
     public class HomeController : Controller
     {
         [HttpGet("~/")]
-        public ActionResult Index() => View();
+        //public ActionResult Index() => View();
+        public ActionResult Index()
+        {
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+
+                return View();
+            }
+            else
+            {
+                //return Redirect("/signin");
+                return Redirect("/signin?returnUrl=%2F");
+            }
+        }
     }
 }

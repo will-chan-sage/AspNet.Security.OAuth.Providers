@@ -46,6 +46,7 @@ namespace AspNet.Security.OAuth.GitHub
 
             var payload = JObject.Parse(await response.Content.ReadAsStringAsync());
 
+            // THIS IS WHERE ADDITIONAL DATA IS RETRIEVED.
             identity.AddOptionalClaim(ClaimTypes.NameIdentifier, GitHubAuthenticationHelper.GetIdentifier(payload), Options.ClaimsIssuer)
                     .AddOptionalClaim(ClaimTypes.Name, GitHubAuthenticationHelper.GetLogin(payload), Options.ClaimsIssuer)
                     .AddOptionalClaim(ClaimTypes.Email, GitHubAuthenticationHelper.GetEmail(payload), Options.ClaimsIssuer)

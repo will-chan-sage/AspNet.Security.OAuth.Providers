@@ -50,8 +50,10 @@ namespace Mvc.Client
 
             app.UseGitHubAuthentication(new GitHubAuthenticationOptions
             {
-                ClientId = "49e302895d8b09ea5656",
-                ClientSecret = "98f1bf028608901e9df91d64ee61536fe562064b",
+                //ClientId = "49e302895d8b09ea5656",
+                //ClientSecret = "98f1bf028608901e9df91d64ee61536fe562064b",
+                ClientId = "c53a177ad66341365901",
+                ClientSecret = "e1c094f2a748fae263723f1af62a69fd31013cdd",
                 Scope = { "user:email" }
             });
 
